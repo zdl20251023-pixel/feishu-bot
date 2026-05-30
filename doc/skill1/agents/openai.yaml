@@ -1,0 +1,3 @@
+display_name: Office Hours
+short_description: Turn rough product or project ideas into an approved design document before coding.
+default_prompt: Use Office Hours to help me think through this idea before implementation. Ask the right diagnostic questions, challenge premises, compare approaches, and produce an approved design document.

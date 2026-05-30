@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>飞书智能机器人：COW vs OpenClaw 深度对比选型报告</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-light: #dbeafe;
+            --success: #16a34a;
+            --success-light: #dcfce7;
+            --warning: #ca8a04;
+            --warning-light: #fef9c3;
+            --text-main: #1f2937;
+            --text-muted: #4b5563;
+            --bg-main: #f9fafb;
+            --card-bg: #ffffff;
+            --border: #e5e7eb;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-main);
+            background-color: var(--bg-main);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 16px;
+        }
+
+        .section-title {
+            color: var(--primary);
+            border-left: 5px solid var(--primary);
+            padding-left: 12px;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        /* 核心对比表格 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: var(--card-bg);
+        }
+
+        th, td {
+            border: 1px solid var(--border);
+            padding: 14px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f3f4f6;
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9fafb;
+        }
+
+        .badge-win {
+            background-color: var(--success-light);
+            color: var(--success);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        /* 核心定位卡片 */
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 24px;
+            background: var(--bg-main);
+        }
+
+        .card.cow {
+            border-top: 4px solid var(--primary);
+        }
+
+        .card.claw {
+            border-top: 4px solid var(--warning);
+        }
+
+        .card h3 {
+            margin-top: 0;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* 建议块 */
+        .tip-box {
+            background-color: var(--primary-light);
+            border-left: 5px solid var(--primary);
+            padding: 20px;
+            border-radius: 0 8px 8px 0;
+            margin: 30px 0;
+        }
+
+        .tip-box h4 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: #1e40af;
+        }
+
+        /* 导出按钮 */
+        .download-btn {
+            display: block;
+            width: fit-content;
+            margin: 20px auto 0 auto;
+            background-color: var(--primary);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background 0.2s;
+            text-decoration: none;
+        }
+
+        .download-btn:hover {
+            background-color: #1d4ed8;
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            .container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>飞书智能机器人选型报告</h1>
+        <div class="subtitle">COW (ChatGPT-on-WeChat) 与 OpenClaw 综合能力深度对比</div>
+        <button class="download-btn" id="saveBtn">保存为本地 HTML 文件</button>
+    </header>
+
+    <div class="section-title">一、 核心定位与设计差异</div>
+    <div class="grid">
+        <div class="card cow">
+            <h3>💬 COW (ChatGPT-on-WeChat / CowAgent)</h3>
+            <p><strong>产品定位：</strong>多渠道通用的“超级 AI 助理与客服系统”。</p>
+            <p><strong>核心逻辑：</strong>以“聊天、服务、插件交互”为核心。针对国内办公 IM（飞书、钉钉、企微）的真实群聊场景进行了保姆级的深度优化。首要目标是完美接收多模态消息，并用高颜值的飞书卡片流式回复。</p>
+        </div>
+        <div class="card claw">
+            <h3>🤖 OpenClaw</h3>
+            <p><strong>产品定位：</strong>具有高执行权限的“24小时全天候 AI 特工 (AI Agent)”。</p>
+            <p><strong>核心逻辑：</strong>以“任务执行、工具调用 (Tool Use)”为核心。飞书在这里更像一个“遥控器”。用户发送指令后，底层运行复杂的 ReAct 思考链，甚至在沙箱环境里跑代码、调外部 API 来达成目的。</p>
+        </div>
+    </div>
+
+    <div class="section-title">二、 飞书生态专项能力对比</div>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 20%;">评估维度</th>
+                <th style="width: 40%;">COW (ChatGPT-on-WeChat)</th>
+                <th style="width: 40%;">OpenClaw</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>消息监听与群控</strong></td>
+                <td><span class="badge-win">胜出 🏆</span> 完美支持飞书群聊逻辑。可在配置中一键开关“群聊免 @ 接收”、“关键词触发”、“黑白名单过滤”等精细化功能。</td>
+                <td>长文本和思考链较重，每次回复前需要工具规划，多人高并发群聊容易产生延迟或上下文混淆。更适合单聊或低频群指令。</td>
+            </tr>
+            <tr>
+                <td><strong>卡片渲染与体验</strong></td>
+                <td><span class="badge-win">胜出 🏆</span> 完美适配飞书新版 Markdown 富文本、消息气泡和多模态卡片，群内流式（Stream）吐字返回非常丝滑。</td>
+                <td>卡片样式相对基础，主要侧重于将后台代码执行的结果或错误日志以文本形式反馈。</td>
+            </tr>
+            <tr>
+                <td><strong>工具调用与干活能力</strong></td>
+                <td>工具偏向“展示型”（如联网搜索、网页总结、AI画图）。虽然支持外接 Dify 等，但 AI 无法直接控制底层系统或修改复杂工作流。</td>
+                <td><span class="badge-win">完胜 🏆</span> 内置海量社区技能（5000+），支持外接本地代码沙箱（E2B/BoxLite）。能自动读写飞书云文档、爬取数据、甚至跑脚本干脏活累活。</td>
+            </tr>
+            <tr>
+                <td><strong>部署与二次开发门槛</strong></td>
+                <td><span class="badge-win">胜出 🏆</span> 极低。支持 Docker 或单文件 Python，修改 <code>config.yaml</code> 填入 AppID、Secret 和大模型 Key 即可一键启动。插件编写规则简单。</td>
+                <td>偏高。由于需要高权限本地执行，需配置完善的代码沙箱环境和复杂的环境变量（如 Tavily 搜索等），调试思考链死循环需要一定技术底子。</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="section-title">三、 终极落地选型建议</div>
+    <div class="tip-box">
+        <h4>📌 场景 A：首选 COW (ChatGPT-on-WeChat)</h4>
+        <p>如果您的核心需求是：<strong>公司内部知识库、社群万能 AI 答疑客服、文件/网页链接智能总结、高并发多人互动群聊</strong>。COW 界面更漂亮、群聊配置更精细、运行稳定且大幅节省 Token。</p>
+    </div>
+
+    <div class="tip-box" style="background-color: #fef9c3; border-left-color: var(--warning);">
+        <h4 style="color: #854d0e;">📌 场景 B：首选 OpenClaw</h4>
+        <p>如果您的核心需求是：<strong>想要一个能替你自动写代码/跑代码、深度读写并编排飞书多维表格、帮你去全网爬取数据做投研分析的私人硬核特工</strong>。OpenClaw 具备真正的 Agent 执行力，是一个合格的数字员工。</p>
+    </div>
+
+    <div style="text-align: center; color: var(--text-muted); font-size: 13px; margin-top: 40px; border-top: 1px solid var(--border); padding-top: 20px;">
+        报告生成时间：2026年5月 &copy; 飞书 AI 机器人技术选型指南
+    </div>
+</div>
+
+<script>
+    // 点击按钮一键下载当前 HTML 页面
+    document.getElementById('saveBtn').addEventListener('click', function() {
+        // 克隆一份当前文档，移除下载按钮本身，保持干净
+        const cloneDoc = document.documentElement.cloneNode(true);
+        const btnToRemove = cloneDoc.querySelector('#saveBtn');
+        if(btnToRemove) btnToRemove.remove();
+
+        const htmlContent = btoa(unescape(encodeURIComponent(cloneDoc.outerHTML)));
+        const link = document.createElement('a');
+        link.download = '飞书机器人选型报告_COW_vs_OpenClaw.html';
+        link.href = 'data:text/html;charset=utf-8;base64,' + htmlContent;
+        link.click();
+    });
+</script>
+
+</body>
+</html>
